@@ -14,15 +14,6 @@ z=np.linspace(0,L+dz,nz+1)
 cinit=c0*np.ones(nz+1)
 cinit[-1]=c8
 
-def ode(t,c):
-    J=np.zeros_like(c)
-    dc=np.diff(c)
-    J[1:]=D*dc/dz
-    J[0]=0
-    dcdt=np.zeros_like(c)
-    dcdt[:-1]=np.diff(J)/dz
-    dcdt[-1]=0
-    return dcdt
 
 c=solve_ivp(ode,(t0,t8),cinit,t_eval=t)["y"]
 print(t)
@@ -33,11 +24,6 @@ fig,ax=plt.subplots()
 ax.plot(z,c)
 ax.set_xlabel("z/$m$")
 ax.set_ylabel("c /$mol$ $m^{-3}$")
-
-fig2,ax2=plt.subplots()
-ax2.plot(t,c.T)
-ax2.set_xlabel("t/$s$")
-ax2.set_ylabel("c /$mol$ $m^{-3}$")
 
 plt.show()
 
